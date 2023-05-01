@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>omg manyland</title>
+		<link rel="stylesheet" href="style.css">
+		<script src="api/util.js"></script>
+		<script src="api/input.js"></script>
+		<script src="api/graphics.js"></script>
+		<script src="api/audio.js"></script>
+		<script src="api/ui.js"></script>
+		<script src="main.js"></script>
+
+		<script>
+			window.addEventListener("load", init_graphics)
+			window.addEventListener("load", init_input)
+			window.addEventListener("load", _i)
+			
+			let delta_time = 0
+			let _last_timestamp = new Date().getTime();
+			function _i() {
+				init();
+				_u();
+			}
+
+			function _u() {
+				let now = new Date().getTime()
+				delta_time = (now - _last_timestamp)/1000
+				_last_timestamp = now
+				update();
+				if (mouse.lb != mouse.b) {
+					mouse.lb = mouse.b;
+				}
+				_d();
+			}
+
+			function _d() {
+				draw();
+				clip()
+				render_screen()
+				requestAnimationFrame(_u)
+			}
+		</script>
+	</head>
+	<body></body>
+	<noscript>	<h1>Enable javascript.</h1></noscript>
+		<div class="view-container">
+		<canvas id="gfx" tabindex="0"></canvas>
+		</div>
+	</body>
+</html>
