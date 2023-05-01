@@ -12,7 +12,7 @@ function init() {
   sprite_editor = create_window({x:32,y:32,w:136,h:96,bg:22,title:"sprite editor"})
   create_button(sprite_editor,{x:4,y:110,w:96,h:9,bg:2,txt:"Selected",on_click:()=>{}})
   for (let i=0; i<palette.length-1; i++) {create_button(sprite_editor,{x:4+i*6,y:120,w:6,h:6,bg:i,txt:"",on_click:()=>{sprite_editor.canvases[0].selected_color=i;}})}
-  create_canvas(sprite_editor,{x:4,y:12,w:16,h:16,psize:6,bg:24,bg_alt:0})
+  create_canvas(sprite_editor,{x:4,y:12,w:8,h:8,psize:12,bg:24,bg_alt:0})
   create_canvas(sprite_editor,{x:102,y:12,w:16,h:16,psize:2,bg:24,bg_alt:0})
   create_button(sprite_editor,{x:102,y:46,w:34,h:10,txt:"Swap",bg:20,on_click:()=>{let old = sprite_editor.canvases[0].spritedata; sprite_editor.canvases[0].spritedata = sprite_editor.canvases[1].spritedata; sprite_editor.canvases[1].spritedata = old}})
   create_button(sprite_editor,{x:4,y:128,w:49,h:9,bg:20,txt:"Eraser",on_click:()=>{sprite_editor.canvases[0].selected_color=32;}})
@@ -49,6 +49,7 @@ function update() {
 function draw() {
   sprite_editor.buttons[0].bg = sprite_editor.canvases[0].selected_color
   rectfill(0,0,x_resolution,y_resolution,27)
+  msd = "\u0008\u0008\u0018\u0018      \u0018\u0014\u0018     \u0018\u0014\u0014\u0018    \u0018\u0014\u0014\u0014\u0018   \u0018\u0014\u0014\u0014\u0014\u0018  \u0018\u0014\u0014\u0014\u0014\u0014\u0018 \u0018\u0014\u0018\u0018\u0018\u0018   \u0018\u0018\u0014\u0018   "
   sd = "\x10\x10\b\x07\x07\x07\x01\b\b\b\b\b\b\x01\x07\x07\b\b\x07\x07\x07\b\b\b\x01\x07\x07\x01\b\b\b\b\b\b\x07\x07\b\b\x01\x07\x11\x11\x07\x07\b\x11\x11\x07\x07\b\x07\x07\b\x01\x07\x11\x07\x07\x07\x07\b\x07\x07\x07\b\b\x07\x07\b\x07\x07\x07\x07\x07\x07\x07\b\b\b\b\b\b\b\x07\b\x07\x07\x07\x07\x07\x07\b\x01\x07\x07\x07\x07\x01\b\x01\b\x01\x07\x07\x07\x01\b\b\x07\x11\x11\x11\x07\x07\b\b\b\b\b\b\b\b\b\x07\x07\x07\x07\x07\x07\x01\b\b\b\x01\x07\x07\x07\x01\b\x07\x07\x07\x07\x07\x01\b\x07\b\x07\x07\x11\x11\x07\x07\b\b\x07\x01\b\b\b\b\x07\b\x07\x07\x07\x07\x07\x07\x01\b\b\b\b\b\b\b\x07\b\x01\x07\x07\x07\x07\x07\x07\b\x01\x07\x07\x07\x01\b\b\b\b\b\x01\x07\x07\x07\x01\b\x07\x11\x11\x07\x07\b\x01\b\b\b\b\b\b\b\b\x01\x07\x07\x07\x07\x07\b\x07\x11\x11\x01\b\x07\x07\x01\b\x07\x07\x07\x07\x07\x07\b\x07\x07\x07\x07\b\b\b\b\b\b\x07\x07\x07\x01\b\b"
   gsd = "\x10\x10\n\n\t\t\n\n\n\n\t\n\n\n\n\t\t\n\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\n\n\v\n\v\v\v\v\v\v\v\v\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t\t\t\t\n\n\n\t\t\t\t\t\t\b\x01\b\t\b\x01\t\t\t\t\t\t\x07\x11\x11\t\x07\x07\b\b\b\b\b\b\t\b\b\x07\x07\x07\x07\x07\x07\x01\b\b\b\x01\x07\x07\t\x01\b\x07\x07\x07\x07\x07\x01\b\x07\b\x07\x07\x11\x11\x07\x07\b\b\x07\x01\b\b\b\b\x07\b\x07\x07\x07\x07\x07\x07\x01\b\b\b\b\b\b\b\x07\b\x01\x07\x07\x07\x07\x07\x07\b\x01\x07\x07\x07\x01\b\b\b\b\b\x01\x07\x07\x07\x01\b\x07\x11\x11\x07\x07\b\x01\b\b\b\b\b\b\b\b\x01\x07\x07\x07\x07\x07\b\x07\x11\x11\x01\b\x07\x07\x01\b\x07\x07\x07\x07\x07\x07\b\x07\x07\x07\x07\b\b\b\b\b\b\x07\x07\x07\x01\b\b"
   for (let x=0; x<32; x++) {
@@ -68,5 +69,5 @@ function draw() {
   draw_window(sprite_editor)
   draw_sprite(((~~elapsed%2==0)?sprite_editor.canvases[0].spritedata:sprite_editor.canvases[1].spritedata),player.x,player.y,player.f)
   //mouse
-  pset(mouse.x,mouse.y,(mouse.h)?22:20)
+  draw_sprite(msd,mouse.x,mouse.y)
 }
