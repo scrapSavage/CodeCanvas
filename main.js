@@ -11,11 +11,16 @@ function init() {
   }
   sprite_editor = create_window({x:32,y:32,w:136,h:96,bg:22,title:"sprite editor"})
   create_button(sprite_editor,{x:4,y:110,w:96,h:9,bg:2,txt:"Selected",on_click:()=>{}})
-  for (let i=0; i<palette.length-1; i++) {create_button(sprite_editor,{x:4+i*6,y:120,w:6,h:6,bg:i,txt:"",on_click:()=>{sprite_editor.canvases[0].selected_color=i;}})}
+  for (let i=0; i<palette.length/2; i++) {
+    create_button(sprite_editor,{x:4+i*6,y:120,w:6,h:6,bg:i,txt:"",on_click:()=>{sprite_editor.canvases[0].selected_color=i;}})
+  }
+  for (let i=0; i<palette.length-1; i++) {
+    create_button(sprite_editor,{x:4+i*6,y:126,w:6,h:6,bg:(i+palette.length/2),txt:"",on_click:()=>{sprite_editor.canvases[0].selected_color=(i+palette.length/2);}})
+  }
   create_canvas(sprite_editor,{x:4,y:12,w:16,h:16,psize:6,bg:24,bg_alt:0})
   create_canvas(sprite_editor,{x:102,y:12,w:16,h:16,psize:2,bg:24,bg_alt:0})
   create_button(sprite_editor,{x:102,y:46,w:34,h:10,txt:"Swap",bg:20,on_click:()=>{let old = sprite_editor.canvases[0].spritedata; sprite_editor.canvases[0].spritedata = sprite_editor.canvases[1].spritedata; sprite_editor.canvases[1].spritedata = old}})
-  create_button(sprite_editor,{x:4,y:128,w:49,h:9,bg:20,txt:"Eraser",on_click:()=>{sprite_editor.canvases[0].selected_color=32;}})
+  create_button(sprite_editor,{x:4,y:133,w:49,h:9,bg:20,txt:"Eraser",on_click:()=>{sprite_editor.canvases[0].selected_color=32;}})
   player = {x:0,y:0,xv:0,yv:0,flr:false,f:false}
 }
 elapsed = 0;
